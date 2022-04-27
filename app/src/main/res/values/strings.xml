@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyApp</string>
+    <string name="whats_your_name">Hi, what\'s your name?</string>
+    <string name="name">Name</string>
+    <string name="daily_goals">Daily Goals Left</string>
+    <string name="tasks_completed">Tasks Completed</string>
+    <string name="ongoing_tasks">Ongoing Tasks</string>
+    <string name="welcome_screen">Welcome!</string>
+    <string name="about_app">This app let\'s you track your
+        daily goals, manage your tasks and helps you build habits.</string>
+    <string name="tasks">Tasks</string>
+</resources>
