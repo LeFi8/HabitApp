@@ -36,9 +36,11 @@
 
     <TextView
         android:id="@+id/top_box"
-        android:layout_width="346dp"
+        android:layout_width="match_parent"
         android:layout_height="115dp"
         android:background="@drawable/rounded_box"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
@@ -47,31 +49,10 @@
         app:layout_constraintVertical_bias="0.034" />
 
     <TextView
-        android:id="@+id/left_box"
-        android:layout_width="156dp"
-        android:layout_height="117dp"
-        android:background="@drawable/rounded_box"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/right_box"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_box"
-        app:layout_constraintVertical_bias="0.076" />
-
-    <TextView
-        android:id="@+id/right_box"
-        android:layout_width="156dp"
-        android:layout_height="117dp"
-        android:background="@drawable/rounded_box"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/left_box"
-        app:layout_constraintTop_toBottomOf="@+id/top_box"
-        app:layout_constraintVertical_bias="0.076" />
-
-    <TextView
         android:id="@+id/ongoing_tasks"
-        android:layout_width="167dp"
-        android:layout_height="33dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
         android:fontFamily="@font/roboto"
         android:text="@string/ongoing_tasks"
         android:textAlignment="center"
@@ -86,8 +67,9 @@
 
     <TextView
         android:id="@+id/number_of_ongoing_tasks"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:text="0"
         android:textAlignment="center"
         android:textColor="@color/white"
@@ -97,68 +79,106 @@
         app:layout_constraintStart_toStartOf="@+id/top_box"
         app:layout_constraintTop_toBottomOf="@+id/ongoing_tasks" />
 
-    <TextView
-        android:id="@+id/daily_goals"
-        android:layout_width="156dp"
-        android:layout_height="24dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/daily_goals"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/left_box"
-        app:layout_constraintEnd_toEndOf="@+id/left_box"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="115dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:layout_marginTop="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/left_box"
-        app:layout_constraintTop_toTopOf="@+id/left_box"
-        app:layout_constraintVertical_bias="0.217" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_box"
+        app:layout_constraintVertical_bias="0.0"
+        android:baselineAligned="false">
 
-    <TextView
-        android:id="@+id/number_of_daily_tasks_left"
-        android:layout_width="156dp"
-        android:layout_height="59dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/left_box"
-        app:layout_constraintEnd_toEndOf="@+id/left_box"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/left_box"
-        app:layout_constraintTop_toBottomOf="@+id/daily_goals"
-        app:layout_constraintVertical_bias="0.307" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/left_box"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_box">
 
-    <TextView
-        android:id="@+id/number_of_completed_tasks"
-        android:layout_width="156dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="4dp"
-        android:text="0"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="@+id/right_box"
-        app:layout_constraintEnd_toEndOf="@+id/right_box"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/right_box"
-        app:layout_constraintTop_toBottomOf="@+id/tasks_completed"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/daily_goals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/daily_goals"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/number_of_daily_tasks_left"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tasks_completed"
-        android:layout_width="156dp"
-        android:layout_height="24dp"
-        android:fontFamily="@font/roboto"
-        android:text="@string/tasks_completed"
-        android:textAlignment="center"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/right_box"
-        app:layout_constraintEnd_toEndOf="@+id/right_box"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/right_box"
-        app:layout_constraintTop_toTopOf="@+id/right_box"
-        app:layout_constraintVertical_bias="0.215" />
+            <TextView
+                android:id="@+id/number_of_daily_tasks_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/daily_goals" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/right_box"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_box">
+
+            <TextView
+                android:id="@+id/tasks_completed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="@string/tasks_completed"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintBottom_toTopOf="@+id/number_of_completed_tasks"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/number_of_completed_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="0"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="34sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tasks_completed" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
