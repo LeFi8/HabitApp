@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.habitapp.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/habitsFragment"
+        android:name="com.example.habitapp.HabitsFragment"
+        android:label="fragment_habits"
+        tools:layout="@layout/fragment_habits" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.habitapp.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+</navigation>

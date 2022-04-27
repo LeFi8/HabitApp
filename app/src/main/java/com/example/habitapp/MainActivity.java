@@ -1,12 +1,16 @@
 package com.example.habitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private final User user = new User();
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +37,31 @@ public class MainActivity extends AppCompatActivity {
         String name = sharedPreferences.getString("name", "");
         user.setName(name);
         createTopPanel();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setSelectedItemId(R.id.homeFragment);
+
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.homeFragment:
+                    setFragment(new HomeFragment());
+                    break;
+                case R.id.tasksFragment:
+                    setFragment(new TasksFragment());
+                    break;
+                case R.id.habitsFragment:
+                    setFragment(new HabitsFragment());
+                    break;
+            }
+            return true;
+        });
     }
 
-    public void createTopPanel(){
+    private void setFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
+    }
+
+    private void createTopPanel(){
         TextView welcome_message = findViewById(R.id.welcome_message);
         String welcomeMessage;
         if (user.getName().isEmpty())
