@@ -38,12 +38,14 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="70dp"
         android:layout_marginBottom="20dp"
+        android:autofillHints=""
         android:background="@drawable/rounded_box"
         android:drawableStart="@drawable/ic_edit"
         android:drawablePadding="10dp"
         android:ems="10"
         android:hint="@string/name"
         android:inputType="textPersonName"
+        android:maxLength="15"
         android:paddingStart="15dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -54,8 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="RtlSymmetry"
-        android:autofillHints="" />
+        tools:ignore="RtlSymmetry" />
 
     <Button
         android:id="@+id/enter_button_change_name"
