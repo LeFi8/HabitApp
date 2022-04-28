@@ -11,6 +11,13 @@
     <string name="tasks">Tasks</string>
     <string name="change_your_name">Change your name</string>
     <string name="enter">Enter</string>
+    <string name="add_task">Add new task</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_habit">Add new habit</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="due_date">Due date</string>
+    <string name="save">Save</string>
+    <string name="new_task">New Task</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.habitapp;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -24,12 +27,16 @@ public class TasksFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+
     public TasksFragment() {
         // Required empty public constructor
     }
 
     /**
-     * Use this factory method to create a new instance of
+     * Use this factory         android:textColor="@color/black"
+method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
@@ -59,6 +66,30 @@ public class TasksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tasks, container, false);
+
+        final View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+
+        Button addTask = rootView.findViewById(R.id.add_task_button);
+
+        addTask.setOnClickListener(l -> {
+            dialogBuilder = new AlertDialog.Builder(this.getContext());
+            final View popupView = inflater.inflate(R.layout.create_task, null);
+
+            dialogBuilder.setView(popupView);
+            dialog = dialogBuilder.create();
+            dialog.show();
+
+            final EditText taskTitle = popupView.findViewById(R.id.add_title);
+            final EditText taskDescription = popupView.findViewById(R.id.add_description);
+            final EditText taskDate = popupView.findViewById(R.id.set_due_date);
+            final Button saveButton = popupView.findViewById(R.id.save_button);
+
+            saveButton.setOnClickListener(view -> {
+                dialog.dismiss();
+            });
+
+        });
+
+        return rootView;
     }
 }

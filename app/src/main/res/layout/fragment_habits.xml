@@ -48,5 +48,28 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/habits" />
+
+        <Button
+            android:id="@+id/add_habit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="90dp"
+            android:layout_marginEnd="90dp"
+            android:layout_marginBottom="0dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/roboto_medium"
+            android:drawableLeft="@drawable/ic_add"
+            android:drawablePadding="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="30dp"
+            android:text="@string/add_habit"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/line2"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="RtlHardcoded,RtlSymmetry" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
