@@ -20,4 +20,9 @@
         android:name="com.example.habitapp.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.example.habitapp.NotesFragment"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes" />
 </navigation>

@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.habitsFragment:
                     setFragment(new HabitsFragment());
                     break;
+                case R.id.notesFragment:
+                    setFragment(new NotesFragment());
             }
             return true;
         });
