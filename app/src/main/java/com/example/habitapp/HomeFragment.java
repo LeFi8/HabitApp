@@ -1,5 +1,7 @@
 package com.example.habitapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +9,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +67,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
+        SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("usersName", Context.MODE_PRIVATE);
+        String name = sharedPreferences.getString("name", "");
+        createTopPanel(rootView, name);
+        return rootView;
+    }
+
+    private void createTopPanel(View rootView, String name){
+        TextView welcome_message = rootView.findViewById(R.id.welcome_message);
+        String welcomeMessage;
+        if (name.isEmpty())
+            welcomeMessage = "Hi!";
+        else welcomeMessage = "Hi, " + name + "!";
+
+        TextView current_date = rootView.findViewById(R.id.current_date);
+        String currentDate = "Today " + new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(new Date());
+
+        welcome_message.setText(welcomeMessage);
+        current_date.setText(currentDate);
     }
 }

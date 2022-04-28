@@ -18,8 +18,6 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final User user = new User();
-
     @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (sharedTime.getBoolean("firstTime", true))
             startActivity(intent);
-
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("usersName", Context.MODE_PRIVATE);
-        String name = sharedPreferences.getString("name", "");
-        user.setName(name);
-        createTopPanel();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.homeFragment);
@@ -59,20 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setFragment(Fragment fragment){
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, fragment).commit();
-    }
-
-    private void createTopPanel(){
-        TextView welcome_message = findViewById(R.id.welcome_message);
-        String welcomeMessage;
-        if (user.getName().isEmpty())
-            welcomeMessage = "Hi!";
-        else welcomeMessage = "Hi, " + user.getName() + "!";
-
-        TextView current_date = findViewById(R.id.current_date);
-        String currentDate = "Today " + new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault()).format(new Date());
-
-        welcome_message.setText(welcomeMessage);
-        current_date.setText(currentDate);
     }
 
 }
