@@ -3,6 +3,8 @@ package com.example.habitapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -22,6 +24,13 @@ public class FirstRun extends AppCompatActivity {
         nameText = findViewById(R.id.username);
         Button button = findViewById(R.id.enter_button);
         button.setOnClickListener(view -> sendName());
+        nameText.setOnKeyListener((view, keyCode, keyEvent) -> {
+            if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                sendName();
+                return true;
+            }
+            return false;
+        });
     }
 
     public void sendName(){
