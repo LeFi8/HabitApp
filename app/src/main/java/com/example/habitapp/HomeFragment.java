@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -71,6 +72,11 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = this.requireActivity().getSharedPreferences("usersName", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("name", "");
         createTopPanel(rootView, name);
+
+        Button settingsButton = rootView.findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener( l -> {
+            //TODO: Popup window to change name
+        });
         return rootView;
     }
 
