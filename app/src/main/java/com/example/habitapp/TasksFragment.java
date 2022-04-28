@@ -73,7 +73,7 @@ method to create a new instance of
 
         addTask.setOnClickListener(l -> {
             dialogBuilder = new AlertDialog.Builder(this.getContext());
-            final View popupView = inflater.inflate(R.layout.create_task, null);
+            final View popupView = inflater.inflate(R.layout.add_task, null);
 
             dialogBuilder.setView(popupView);
             dialog = dialogBuilder.create();

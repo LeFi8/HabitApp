@@ -20,4 +20,6 @@
     <string name="due_date">Due date</string>
     <string name="save">Save</string>
     <string name="new_task">New Task</string>
+    <string name="new_habit">New Habit</string>
+    <string name="set_time_for_habit">Time of day</string>
 </resources>

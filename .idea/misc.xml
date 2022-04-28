@@ -8,12 +8,15 @@
         <entry key="app/src/main/res/drawable/ic_habits.xml" value="0.3425" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.3355" />
         <entry key="app/src/main/res/drawable/ic_settings.xml" value="0.3495" />
+        <entry key="app/src/main/res/drawable/ic_tasks.xml" value="0.359" />
         <entry key="app/src/main/res/drawable/ic_title.xml" value="0.3425" />
         <entry key="app/src/main/res/drawable/line.xml" value="0.359" />
         <entry key="app/src/main/res/drawable/rounded_box.xml" value="0.359" />
         <entry key="app/src/main/res/layout/activity_create_task.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/add_habit.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/change_name.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/create_task.xml" value="0.333786231884058" />
         <entry key="app/src/main/res/layout/first_run.xml" value="0.35280797101449274" />
         <entry key="app/src/main/res/layout/fragment_habits.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3578125" />

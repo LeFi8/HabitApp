@@ -7,7 +7,7 @@
     android:background="@color/light_grey">
 
     <TextView
-        android:id="@+id/new_task"
+        android:id="@+id/new_habit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -15,11 +15,10 @@
         android:textColor="@color/white"
         android:textSize="40sp"
         android:layout_marginTop="20dp"
-        android:text="@string/new_task"
+        android:text="@string/new_habit"
         app:layout_constraintEnd_toEndOf="@id/add_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <EditText
         android:id="@+id/add_title"
@@ -39,22 +38,21 @@
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/new_task"
+        app:layout_constraintTop_toBottomOf="@+id/new_habit"
         tools:ignore="LabelFor" />
 
     <EditText
-        android:id="@+id/set_due_date"
+        android:id="@+id/set_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="35dp"
-        android:autofillHints=""
-        android:drawableEnd="@drawable/ic_calendar"
+        android:drawableEnd="@drawable/ic_clock"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="@string/due_date"
-        android:inputType="date"
+        android:hint="@string/set_time_for_habit"
+        android:inputType="time"
         android:backgroundTint="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
@@ -64,7 +62,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_title"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/add_description"
@@ -74,19 +73,19 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="35dp"
         android:autofillHints=""
+        android:backgroundTint="@color/white"
         android:drawableEnd="@drawable/ic_description"
         android:ems="10"
         android:fontFamily="@font/roboto"
         android:hint="@string/description"
         android:inputType="textPersonName"
-        android:backgroundTint="@color/white"
         android:textColorHint="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/set_due_date"
+        app:layout_constraintTop_toBottomOf="@+id/set_time"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck" />
 
