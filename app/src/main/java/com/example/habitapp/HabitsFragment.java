@@ -1,6 +1,7 @@
 package com.example.habitapp;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +17,7 @@ import android.widget.EditText;
  * Use the {@link HabitsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HabitsFragment extends Fragment {
+public class HabitsFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -67,26 +68,13 @@ public class HabitsFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_habits, container, false);
 
         Button addHabit = rootView.findViewById(R.id.add_habit_button);
-
-        addHabit.setOnClickListener(l -> {
-            dialogBuilder = new AlertDialog.Builder(this.getContext());
-            final View popupView = inflater.inflate(R.layout.add_habit, null);
-
-            dialogBuilder.setView(popupView);
-            dialog = dialogBuilder.create();
-            dialog.show();
-
-            final EditText habitTitle = popupView.findViewById(R.id.add_title);
-            final EditText habitTime = popupView.findViewById(R.id.set_time);
-            final EditText habitDescription = popupView.findViewById(R.id.add_description);
-            final Button saveButton = popupView.findViewById(R.id.save_button);
-
-            saveButton.setOnClickListener(view -> {
-                dialog.dismiss();
-            });
-
-        });
+        addHabit.setOnClickListener(l -> openAddHabitActivity());
 
         return rootView;
+    }
+
+    private void openAddHabitActivity(){
+        Intent intent = new Intent(this.getActivity(), AddHabitActivity.class);
+        startActivity(intent);
     }
 }

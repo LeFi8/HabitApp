@@ -1,6 +1,7 @@
 package com.example.habitapp;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -26,9 +27,6 @@ public class TasksFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-    private AlertDialog.Builder dialogBuilder;
-    private AlertDialog dialog;
 
     public TasksFragment() {
         // Required empty public constructor
@@ -70,26 +68,13 @@ method to create a new instance of
         final View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
 
         Button addTask = rootView.findViewById(R.id.add_task_button);
-
-        addTask.setOnClickListener(l -> {
-            dialogBuilder = new AlertDialog.Builder(this.getContext());
-            final View popupView = inflater.inflate(R.layout.add_task, null);
-
-            dialogBuilder.setView(popupView);
-            dialog = dialogBuilder.create();
-            dialog.show();
-
-            final EditText taskTitle = popupView.findViewById(R.id.add_title);
-            final EditText taskDescription = popupView.findViewById(R.id.add_description);
-            final EditText taskDate = popupView.findViewById(R.id.set_due_date);
-            final Button saveButton = popupView.findViewById(R.id.save_button);
-
-            saveButton.setOnClickListener(view -> {
-                dialog.dismiss();
-            });
-
-        });
+        addTask.setOnClickListener( l -> openAddTaskActivity());
 
         return rootView;
+    }
+
+    private void openAddTaskActivity(){
+        Intent intent = new Intent(this.getActivity(), AddTaskActivity.class);
+        startActivity(intent);
     }
 }
