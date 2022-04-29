@@ -1,23 +1,15 @@
 package com.example.habitapp;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -49,7 +41,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 Toast.makeText(this, "Task needs a title", Toast.LENGTH_SHORT).show();
             else {
                 // TODO: save title, date and description, count number of ongoing tasks
-                Toast.makeText(this, "Task saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Task added!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

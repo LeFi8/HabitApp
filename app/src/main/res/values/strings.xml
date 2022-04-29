@@ -22,4 +22,6 @@
     <string name="new_task">New Task</string>
     <string name="new_habit">New Habit</string>
     <string name="set_time_for_habit">Time of day</string>
+    <string name="notes">Notes</string>
+    <string name="start_typing">Start typing</string>
 </resources>
