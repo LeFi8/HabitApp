@@ -15,8 +15,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_habit">Add new habit</string>
-    <string name="title">Title</string>
-    <string name="description">Description</string>
+    <string name="title_task">Task</string>
+    <string name="title_habit">Habit</string>
+    <string name="details">Details</string>
     <string name="due_date">Due date</string>
     <string name="save">Save</string>
     <string name="new_task">New Task</string>

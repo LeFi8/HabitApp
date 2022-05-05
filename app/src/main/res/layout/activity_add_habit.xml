@@ -32,8 +32,8 @@
         android:drawableEnd="@drawable/ic_title"
         android:ems="10"
         android:fontFamily="@font/roboto_medium"
-        android:hint="@string/title"
-        android:inputType="textPersonName"
+        android:hint="@string/title_habit"
+        android:inputType="text"
         android:backgroundTint="@color/white"
         android:textColorHint="@color/light_grey3"
         android:textSize="24sp"
@@ -67,7 +67,7 @@
         android:autofillHints="" />
 
     <EditText
-        android:id="@+id/add_description"
+        android:id="@+id/add_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="35dp"
@@ -75,11 +75,11 @@
         android:layout_marginEnd="35dp"
         android:autofillHints=""
         android:backgroundTint="@color/white"
-        android:drawableEnd="@drawable/ic_description"
+        android:drawableEnd="@drawable/ic_details"
         android:ems="10"
         android:fontFamily="@font/roboto"
-        android:hint="@string/description"
-        android:inputType="textPersonName"
+        android:hint="@string/details"
+        android:inputType="text"
         android:textColorHint="@color/light_grey3"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -104,7 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_description"
+        app:layout_constraintTop_toBottomOf="@+id/add_details"
         app:layout_constraintVertical_bias="0.0" />
 
 

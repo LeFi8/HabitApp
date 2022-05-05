@@ -14,7 +14,7 @@ public class AddHabitActivity extends AppCompatActivity {
 
     private EditText habitTitle;
     private EditText habitTime;
-    private EditText habitDescription;
+    private EditText habitDetails;
     private int hour, minute;
 
     @Override
@@ -24,7 +24,7 @@ public class AddHabitActivity extends AppCompatActivity {
 
         habitTitle = findViewById(R.id.add_title);
         habitTime = findViewById(R.id.set_time);
-        habitDescription = findViewById(R.id.add_description);
+        habitDetails = findViewById(R.id.add_details);
 
         habitTime.setOnClickListener( l -> setTimePicker());
 
