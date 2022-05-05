@@ -59,6 +59,10 @@ public class DbHelper extends SQLiteOpenHelper {
         db.insert(TABLE_TASK, null, cv);
     }
 
+    public void countTasks(){
+        SQLiteDatabase db = this.getWritableDatabase();
+    }
+
     @SuppressLint("Recycle")
     public Cursor readAllTasks(){
         String query = "SELECT * FROM " + TABLE_TASK;

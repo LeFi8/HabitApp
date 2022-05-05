@@ -25,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/fragment_notes.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/fragment_tasks.xml" value="0.3578125" />
+        <entry key="app/src/main/res/layout/task_row.xml" value="0.5" />
         <entry key="app/src/main/res/menu/bottom_menu.xml" value="0.3578125" />
       </map>
     </option>
