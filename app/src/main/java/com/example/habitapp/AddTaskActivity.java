@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
@@ -47,12 +48,13 @@ public class AddTaskActivity extends AppCompatActivity {
             if (taskTitle.getText().toString().isEmpty())
                 Toast.makeText(this, "Task needs a title", Toast.LENGTH_SHORT).show();
             else {
-                // TODO: save title, date and description, count number of ongoing tasks
                 DbHelper db = new DbHelper(AddTaskActivity.this);
                 db.addTask(taskTitle.getText().toString(), date, taskDetails.getText().toString());
 
                 Toast.makeText(this, "Task added!", Toast.LENGTH_SHORT).show();
-                finish();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+//                finish();
             }
         });
     }

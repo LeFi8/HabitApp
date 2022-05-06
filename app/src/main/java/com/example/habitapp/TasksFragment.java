@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TasksFragment extends Fragment {
 
@@ -37,13 +39,9 @@ public class TasksFragment extends Fragment {
         dueDate = new ArrayList<>();
         details = new ArrayList<>();
 
-        storeDataInArrays();
+        displayTasks();
 
-        adapter = new TaskAdapter(this.getActivity(), idTask, name, dueDate, details);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-
-        Button addTask = rootView.findViewById(R.id.add_task_button);
+        View addTask = rootView.findViewById(R.id.add_task_button);
         addTask.setOnClickListener( l -> openAddTaskActivity());
 
         return rootView;
@@ -65,4 +63,12 @@ public class TasksFragment extends Fragment {
             }
         }
     }
+
+    private void displayTasks(){
+        storeDataInArrays();
+        adapter = new TaskAdapter(this.getActivity(), idTask, name, dueDate, details);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
+    }
+
 }

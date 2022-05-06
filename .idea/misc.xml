@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_add_circle.xml" value="0.359" />
         <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.3425" />
         <entry key="app/src/main/res/drawable/ic_description.xml" value="0.3425" />
         <entry key="app/src/main/res/drawable/ic_habits.xml" value="0.3425" />

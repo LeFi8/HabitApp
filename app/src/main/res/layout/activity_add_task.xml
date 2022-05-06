@@ -80,7 +80,7 @@
         android:ems="10"
         android:fontFamily="@font/roboto"
         android:hint="@string/details"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:backgroundTint="@color/white"
         android:textColorHint="@color/light_grey3"
         android:textSize="20sp"
