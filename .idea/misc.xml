@@ -5,6 +5,7 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_add_circle.xml" value="0.359" />
         <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.3425" />
+        <entry key="app/src/main/res/drawable/ic_delete.xml" value="0.359" />
         <entry key="app/src/main/res/drawable/ic_description.xml" value="0.3425" />
         <entry key="app/src/main/res/drawable/ic_habits.xml" value="0.3425" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.3355" />
@@ -21,6 +22,7 @@
         <entry key="app/src/main/res/layout/add_task.xml" value="0.30434782608695654" />
         <entry key="app/src/main/res/layout/change_name.xml" value="0.33" />
         <entry key="app/src/main/res/layout/create_task.xml" value="0.333786231884058" />
+        <entry key="app/src/main/res/layout/delete_popup.xml" value="0.33" />
         <entry key="app/src/main/res/layout/first_run.xml" value="0.35280797101449274" />
         <entry key="app/src/main/res/layout/fragment_habits.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3578125" />

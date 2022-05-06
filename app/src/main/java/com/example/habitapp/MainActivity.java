@@ -28,6 +28,11 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.homeFragment);
 
+        if (getIntent().getIntExtra("fragment", 0) == 1) {
+            setFragment(new TasksFragment());
+            bottomNavigationView.setSelectedItemId(R.id.tasksFragment);
+        }
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.homeFragment:

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -46,7 +47,22 @@ public class DbHelper extends SQLiteOpenHelper {
         cv.put("Name", name);
         cv.put("DueDate", dueDate);
         cv.put("Details", details);
-        db.insert(TABLE_TASK, null, cv);
+
+        long result = db.insert(TABLE_TASK, null, cv);
+        if (result == -1)
+            Toast.makeText(context, "Failed to add task", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context, "Task added", Toast.LENGTH_SHORT).show();
+    }
+
+    public void deleteTask(String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        long result = db.delete(TABLE_TASK, "IdTask=?", new String[]{id});
+
+        if (result == -1)
+            Toast.makeText(context, "Failed to delete task", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
     }
 
     public void addHabit(String name, String time, String details){

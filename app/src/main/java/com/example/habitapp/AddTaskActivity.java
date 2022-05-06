@@ -51,10 +51,9 @@ public class AddTaskActivity extends AppCompatActivity {
                 DbHelper db = new DbHelper(AddTaskActivity.this);
                 db.addTask(taskTitle.getText().toString(), date, taskDetails.getText().toString());
 
-                Toast.makeText(this, "Task added!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("fragment", 1);
                 startActivity(intent);
-//                finish();
             }
         });
     }
