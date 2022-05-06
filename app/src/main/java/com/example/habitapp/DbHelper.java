@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -53,6 +54,7 @@ public class DbHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to add task", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Task added", Toast.LENGTH_SHORT).show();
+        db.close();
     }
 
     public void deleteTask(String id){
@@ -63,6 +65,7 @@ public class DbHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to delete task", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
+        db.close();
     }
 
     public void addHabit(String name, String time, String details){
@@ -73,10 +76,15 @@ public class DbHelper extends SQLiteOpenHelper {
         cv.put("Time", time);
         cv.put("Details", details);
         db.insert(TABLE_TASK, null, cv);
+        db.close();
     }
 
-    public void countTasks(){
-        SQLiteDatabase db = this.getWritableDatabase();
+    public long numOfTasks(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        long count = DatabaseUtils.queryNumEntries(db, TABLE_TASK);
+        db.close();
+
+        return count;
     }
 
     @SuppressLint("Recycle")

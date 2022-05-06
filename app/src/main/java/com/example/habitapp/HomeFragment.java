@@ -26,6 +26,9 @@ public class HomeFragment extends Fragment {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
 
+    private DbHelper db;
+    private TextView ongoingTasks, dailyGoals, completedTasks;
+
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -34,6 +37,13 @@ public class HomeFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         createTopPanel(rootView);
+
+        ongoingTasks = rootView.findViewById(R.id.number_of_ongoing_tasks);
+        dailyGoals = rootView.findViewById(R.id.number_of_daily_goals_left);
+        completedTasks = rootView.findViewById(R.id.number_of_completed_tasks);
+        db = new DbHelper(this.getContext());
+
+        ongoingTasks.setText(String.valueOf(db.numOfTasks()));
 
         Button settingsButton = rootView.findViewById(R.id.settings_button);
 
