@@ -3,6 +3,7 @@ package com.example.habitapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,8 +34,13 @@ public class AddHabitActivity extends AppCompatActivity {
             if (habitTitle.getText().toString().isEmpty())
                 Toast.makeText(this, "Habit needs a title", Toast.LENGTH_SHORT).show();
             else {
-                // TODO: save info, count number of habits
-                Toast.makeText(this, "Habit added!", Toast.LENGTH_SHORT).show();
+                DbHelper db = new DbHelper(AddHabitActivity.this);
+                db.addHabit(habitTitle.getText().toString(), habitTime.getText().toString(), habitDetails.getText().toString());
+
+                Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("fragment", 2);
+                startActivity(intent);
+                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 finish();
             }
         });

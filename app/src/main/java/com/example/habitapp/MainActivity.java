@@ -31,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
         if (getIntent().getIntExtra("fragment", 0) == 1) {
             setFragment(new TasksFragment());
             bottomNavigationView.setSelectedItemId(R.id.tasksFragment);
+        } else if (getIntent().getIntExtra("fragment", 0) == 2) {
+            setFragment(new HabitsFragment());
+            bottomNavigationView.setSelectedItemId(R.id.habitsFragment);
         }
 
         bottomNavigationView.setOnItemSelectedListener(item -> {

@@ -44,6 +44,8 @@ public class HomeFragment extends Fragment {
         db = new DbHelper(this.getContext());
 
         ongoingTasks.setText(String.valueOf(db.numOfTasks()));
+        // TODO: daily goals counter
+        dailyGoals.setText(String.valueOf(db.numOfHabits()));
 
         Button settingsButton = rootView.findViewById(R.id.settings_button);
 

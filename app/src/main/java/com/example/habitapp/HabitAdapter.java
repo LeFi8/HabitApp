@@ -15,48 +15,48 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
+public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<String> idTask, taskName, taskDueDate, taskDetails;
+    private ArrayList<String> idHabit, habitName, habitTime, habitDetails;
 
-    public TaskAdapter(Context context,
-                       ArrayList<String> idTask,
-                       ArrayList<String> taskName,
-                       ArrayList<String> taskDueDate,
-                       ArrayList<String> taskDetails) {
-        this.idTask = idTask;
+    public HabitAdapter(Context context,
+                        ArrayList<String> idHabit,
+                        ArrayList<String> habitName,
+                        ArrayList<String> habitTime,
+                        ArrayList<String> habitDetails) {
+        this.idHabit = idHabit;
         this.context = context;
-        this.taskName = taskName;
-        this.taskDueDate = taskDueDate;
-        this.taskDetails = taskDetails;
+        this.habitName = habitName;
+        this.habitTime = habitTime;
+        this.habitDetails = habitDetails;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public HabitAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.task_row, parent, false);
+        View view = inflater.inflate(R.layout.habit_row, parent, false);
 
-        return new MyViewHolder(view);
+        return new HabitAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.taskId_txt.setText(String.valueOf(idTask.get(position)));
-        holder.taskName_txt.setText(String.valueOf(taskName.get(position)));
-        holder.taskDueDate_txt.setText(String.valueOf(taskDueDate.get(position)));
-        holder.taskDetails_txt.setText(String.valueOf(taskDetails.get(position)));
+    public void onBindViewHolder(@NonNull HabitAdapter.MyViewHolder holder, int position) {
+        holder.habitId_txt.setText(String.valueOf(idHabit.get(position)));
+        holder.habitName_txt.setText(String.valueOf(habitName.get(position)));
+        holder.habitTime_txt.setText(String.valueOf(habitTime.get(position)));
+        holder.habitDetails_txt.setText(String.valueOf(habitDetails.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        return idTask.size();
+        return idHabit.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView taskId_txt, taskName_txt, taskDueDate_txt, taskDetails_txt;
+        private TextView habitId_txt, habitName_txt, habitTime_txt, habitDetails_txt;
         private TextView deleteButton, deleteTextConfirmation;
         private Button confirmDelete;
         private Button cancelDelete;
@@ -71,24 +71,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
 
             activity = (Activity) itemView.getContext();
 
-            taskId_txt = itemView.findViewById(R.id.id_task);
-            taskName_txt = itemView.findViewById(R.id.task_title);
-            taskDueDate_txt = itemView.findViewById(R.id.task_date);
-            taskDetails_txt = itemView.findViewById(R.id.task_details);
-            deleteButton = itemView.findViewById(R.id.delete_task);
+            habitId_txt = itemView.findViewById(R.id.id_habit);
+            habitName_txt = itemView.findViewById(R.id.habit_title);
+            habitTime_txt = itemView.findViewById(R.id.habit_time);
+            habitDetails_txt = itemView.findViewById(R.id.habit_details);
+            deleteButton = itemView.findViewById(R.id.delete_habit);
 
             deleteButton.setOnClickListener(l -> {
                 dialogBuilder = new AlertDialog.Builder(activity);
-                final View popupView = LayoutInflater.from(activity).inflate(R.layout.delete_task_popup, null);
+                final View popupView = LayoutInflater.from(activity).inflate(R.layout.delete_habit_popup, null);
 
                 deleteTextConfirmation = popupView.findViewById(R.id.deleteTextConfirmation);
-                confirmDelete = popupView.findViewById(R.id.delete_task_yes);
-                cancelDelete = popupView.findViewById(R.id.delete_task_cancel);
+                confirmDelete = popupView.findViewById(R.id.delete_habit_yes);
+                cancelDelete = popupView.findViewById(R.id.delete_habit_cancel);
 
                 StringBuilder deleteHeader = new StringBuilder();
                 deleteHeader.append(deleteTextConfirmation.getText().toString().trim());
                 deleteHeader.append("\n\n");
-                deleteHeader.append(taskName_txt.getText().toString().trim());
+                deleteHeader.append(habitName_txt.getText().toString().trim());
                 deleteTextConfirmation.setText(deleteHeader);
 
                 dialogBuilder.setView(popupView);
@@ -100,10 +100,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
 
                 confirmDelete.setOnClickListener(x -> {
                     DbHelper db = new DbHelper(activity);
-                    db.deleteTask(taskId_txt.getText().toString().trim());
+                    db.deleteHabit(habitId_txt.getText().toString().trim());
 
                     Intent intent = new Intent(activity, MainActivity.class);
-                    intent.putExtra("fragment", 1);
+                    intent.putExtra("fragment", 2);
                     activity.startActivity(intent);
                     activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 });
@@ -113,3 +113,4 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         }
     }
 }
+

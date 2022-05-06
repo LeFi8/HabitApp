@@ -19,9 +19,9 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String TABLE_TASK = "task";
     private static final String TABLE_HABIT = "habit";
     private static final String CREATE_TABLE_TASK =
-            "CREATE TABLE " + TABLE_TASK + " (IdTask INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate TEXT, Details TEXT);";
+            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate TEXT, Details TEXT);";
     private static final String CREATE_TABLE_HABIT =
-            "CREATE TABLE " + TABLE_HABIT + " (IdHabit INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time TEXT, Details TEXT);";
+            "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time TEXT, Details TEXT);";
 
     public DbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -51,21 +51,18 @@ public class DbHelper extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_TASK, null, cv);
         if (result == -1)
-            Toast.makeText(context, "Failed to add task", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Failed to add new task", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Task added", Toast.LENGTH_SHORT).show();
         db.close();
     }
 
     public void deleteTask(String id){
-        SQLiteDatabase db = this.getWritableDatabase();
-        long result = db.delete(TABLE_TASK, "IdTask=?", new String[]{id});
-
+        long result = deleteFromTable(TABLE_TASK, id);
         if (result == -1)
             Toast.makeText(context, "Failed to delete task", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
-        db.close();
     }
 
     public void addHabit(String name, String time, String details){
@@ -75,21 +72,54 @@ public class DbHelper extends SQLiteOpenHelper {
         cv.put("Name", name);
         cv.put("Time", time);
         cv.put("Details", details);
-        db.insert(TABLE_TASK, null, cv);
+        long result = db.insert(TABLE_HABIT, null, cv);
+        if (result == -1)
+            Toast.makeText(context, "Failed to add new habit", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context, "Habit added", Toast.LENGTH_SHORT).show();
         db.close();
     }
 
+    public void deleteHabit(String id){
+        long result = deleteFromTable(TABLE_HABIT, id);
+        if (result == -1)
+            Toast.makeText(context, "Failed to delete habit", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(context, "Habit deleted", Toast.LENGTH_SHORT).show();
+    }
+
     public long numOfTasks(){
+        return numOfRowsInTable(TABLE_TASK);
+    }
+
+    public long numOfHabits(){
+        return numOfRowsInTable(TABLE_HABIT);
+    }
+
+    private long numOfRowsInTable(String tableName){
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, TABLE_TASK);
+        long count = DatabaseUtils.queryNumEntries(db, tableName);
         db.close();
 
         return count;
     }
 
-    @SuppressLint("Recycle")
+    private long deleteFromTable(String tableName, String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        return db.delete(tableName, "Id=?", new String[]{id});
+    }
+
     public Cursor readAllTasks(){
-        String query = "SELECT * FROM " + TABLE_TASK;
+        return readAllFromTable(TABLE_TASK);
+    }
+
+    public Cursor readAllHabits(){
+        return readAllFromTable(TABLE_HABIT);
+    }
+
+    @SuppressLint("Recycle")
+    private Cursor readAllFromTable(String tableName){
+        String query = "SELECT * FROM " + tableName;
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

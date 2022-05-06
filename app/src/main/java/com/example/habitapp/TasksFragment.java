@@ -32,7 +32,7 @@ public class TasksFragment extends Fragment {
 
         final View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
 
-        recyclerView = rootView.findViewById(R.id.recycler_view);
+        recyclerView = rootView.findViewById(R.id.recycler_view_tasks);
 
         db = new DbHelper(this.getActivity());
         idTask = new ArrayList<>();
