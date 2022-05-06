@@ -1,5 +1,6 @@
 package com.example.habitapp;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -66,8 +67,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         private AlertDialog.Builder dialogBuilder;
         private AlertDialog dialog;
 
+        Activity activity;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            activity = (Activity) itemView.getContext();
+
             taskId_txt = itemView.findViewById(R.id.id_task);
             taskName_txt = itemView.findViewById(R.id.task_title);
             taskDueDate_txt = itemView.findViewById(R.id.task_date);
@@ -75,8 +81,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
             deleteButton = itemView.findViewById(R.id.delete_task);
 
             deleteButton.setOnClickListener(l -> {
-                dialogBuilder = new AlertDialog.Builder(itemView.getContext());
-                final View popupView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.delete_popup, null);
+                dialogBuilder = new AlertDialog.Builder(activity);
+                final View popupView = LayoutInflater.from(activity).inflate(R.layout.delete_popup, null);
 
                 deleteTextConfirmation = popupView.findViewById(R.id.deleteTextConfirmation);
                 confirmDelete = popupView.findViewById(R.id.delete_task_yes);
@@ -96,12 +102,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
                 });
 
                 confirmDelete.setOnClickListener(x -> {
-                    DbHelper db = new DbHelper(itemView.getContext());
+                    DbHelper db = new DbHelper(activity);
                     db.deleteTask(taskId_txt.getText().toString().trim());
 
-                    Intent intent = new Intent(itemView.getContext(), MainActivity.class);
+                    Intent intent = new Intent(activity, MainActivity.class);
                     intent.putExtra("fragment", 1);
-                    itemView.getContext().startActivity(intent);
+                    activity.startActivity(intent);
+                    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 });
 
                 dialog.show();
