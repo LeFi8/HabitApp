@@ -49,7 +49,7 @@ public class AddTaskActivity extends AppCompatActivity {
                 Toast.makeText(this, "Task needs a title", Toast.LENGTH_SHORT).show();
             else {
                 DbHelper db = new DbHelper(AddTaskActivity.this);
-                db.addTask(taskTitle.getText().toString(), date, taskDetails.getText().toString());
+                db.addTask(taskTitle.getText().toString(), String.valueOf(calendar.getTimeInMillis()), taskDetails.getText().toString());
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("fragment", 1);

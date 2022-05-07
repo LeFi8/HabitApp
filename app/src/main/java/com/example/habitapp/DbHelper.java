@@ -13,13 +13,13 @@ import androidx.annotation.Nullable;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
     private static final String DATABASE_NAME = "TasksAndHabits.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_TASK = "task";
     private static final String TABLE_HABIT = "habit";
     private static final String CREATE_TABLE_TASK =
-            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate TEXT, Details TEXT);";
+            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate INTEGER, Details TEXT);";
     private static final String CREATE_TABLE_HABIT =
             "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time TEXT, Details TEXT);";
 
@@ -110,16 +110,17 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor readAllTasks(){
-        return readAllFromTable(TABLE_TASK);
+        String query = "SELECT * FROM " + TABLE_TASK + " ORDER BY (DueDate)";
+        return readAllFromTable(query);
     }
 
     public Cursor readAllHabits(){
-        return readAllFromTable(TABLE_HABIT);
+        String query = "SELECT * FROM " + TABLE_HABIT;
+        return readAllFromTable(query);
     }
 
     @SuppressLint("Recycle")
-    private Cursor readAllFromTable(String tableName){
-        String query = "SELECT * FROM " + tableName;
+    private Cursor readAllFromTable(String query){
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

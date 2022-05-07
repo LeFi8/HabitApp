@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
+import java.text.DateFormat;
 import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
@@ -28,8 +30,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         this.idTask = idTask;
         this.context = context;
         this.taskName = taskName;
-        this.taskDueDate = taskDueDate;
+        this.taskDueDate = convertToDate(taskDueDate);
         this.taskDetails = taskDetails;
+    }
+
+    private ArrayList<String> convertToDate(ArrayList<String> taskDueDate){
+        ArrayList<String> tmp = new ArrayList<>();
+        for (String date : taskDueDate)
+            tmp.add(DateFormat.getDateInstance().format(Long.parseLong(date)));
+        return tmp;
     }
 
     @NonNull
