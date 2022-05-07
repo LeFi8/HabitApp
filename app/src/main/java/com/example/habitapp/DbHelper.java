@@ -21,7 +21,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_TASK =
             "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate INTEGER, Details TEXT);";
     private static final String CREATE_TABLE_HABIT =
-            "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time TEXT, Details TEXT);";
+            "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time INTEGER, Details TEXT);";
 
     public DbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -115,7 +115,7 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor readAllHabits(){
-        String query = "SELECT * FROM " + TABLE_HABIT;
+        String query = "SELECT * FROM " + TABLE_HABIT + " ORDER BY (Time)";
         return readAllFromTable(query);
     }
 

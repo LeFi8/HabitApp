@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
 
@@ -36,10 +38,16 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
 
     private ArrayList<String> convertToDate(ArrayList<String> taskDueDate){
         ArrayList<String> tmp = new ArrayList<>();
-        for (String date : taskDueDate)
+        for (String date : taskDueDate) {
+            if (date.equals("")){
+                tmp.add(date);
+                continue;
+            }
             tmp.add(DateFormat.getDateInstance().format(Long.parseLong(date)));
+        }
         return tmp;
     }
+
 
     @NonNull
     @Override

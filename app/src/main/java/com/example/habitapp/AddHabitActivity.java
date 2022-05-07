@@ -17,6 +17,9 @@ public class AddHabitActivity extends AppCompatActivity {
     private EditText habitTime;
     private EditText habitDetails;
     private int hour, minute;
+    private long timeInMilliseconds;
+
+    private boolean checkIfTimeIsSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +30,20 @@ public class AddHabitActivity extends AppCompatActivity {
         habitTime = findViewById(R.id.set_time);
         habitDetails = findViewById(R.id.add_details);
 
-        habitTime.setOnClickListener( l -> setTimePicker());
+        checkIfTimeIsSet = false;
+
+        habitTime.setOnClickListener(l -> setTimePicker());
 
         Button saveNewHabitButton = findViewById(R.id.save_button);
-        saveNewHabitButton.setOnClickListener( l -> {
+        saveNewHabitButton.setOnClickListener(l -> {
             if (habitTitle.getText().toString().isEmpty())
                 Toast.makeText(this, "Habit needs a title", Toast.LENGTH_SHORT).show();
             else {
                 DbHelper db = new DbHelper(AddHabitActivity.this);
-                db.addHabit(habitTitle.getText().toString(), habitTime.getText().toString(), habitDetails.getText().toString());
+                if (checkIfTimeIsSet)
+                    db.addHabit(habitTitle.getText().toString(), String.valueOf(timeInMilliseconds), habitDetails.getText().toString());
+                else
+                    db.addHabit(habitTitle.getText().toString(), "", habitDetails.getText().toString());
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("fragment", 2);
@@ -47,9 +55,11 @@ public class AddHabitActivity extends AppCompatActivity {
     }
 
     public void setTimePicker() {
+        checkIfTimeIsSet = true;
         TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
             hour = selectedHour;
             minute = selectedMinute;
+            timeInMilliseconds = hour * 3600000L + minute * 60000L;
             habitTime.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
         };
 
@@ -57,4 +67,5 @@ public class AddHabitActivity extends AppCompatActivity {
         timePickerDialog.setTitle("Select time");
         timePickerDialog.show();
     }
+
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder> {
@@ -28,8 +29,42 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
         this.idHabit = idHabit;
         this.context = context;
         this.habitName = habitName;
-        this.habitTime = habitTime;
+        this.habitTime = convertToTime(habitTime);
         this.habitDetails = habitDetails;
+    }
+
+    private ArrayList<String> convertToTime(ArrayList<String> timeOfHabit) {
+        ArrayList<String> tmp = new ArrayList<>();
+        for (String time : timeOfHabit) {
+            if (time.equals("")) {
+                tmp.add(time);
+                continue;
+            }
+            tmp.add(convertFromMilliseconds(time));
+        }
+        return tmp;
+    }
+
+    private String convertFromMilliseconds(String time){
+        long timeInMilliSeconds = Long.parseLong(time);
+        int minutes = (int) ((timeInMilliSeconds / (1000*60)) % 60);
+        int hours = (int) ((timeInMilliSeconds / (1000*60*60)) % 24);
+
+        String strHours;
+        String strMinutes;
+
+        if (hours < 10)
+            strHours = 0 + String.valueOf(hours);
+        else
+            strHours = String.valueOf(hours);
+
+        if (minutes < 10)
+            strMinutes = 0 + String.valueOf(minutes);
+        else
+            strMinutes = String.valueOf(minutes);
+
+
+        return strHours + ":" + strMinutes;
     }
 
     @NonNull

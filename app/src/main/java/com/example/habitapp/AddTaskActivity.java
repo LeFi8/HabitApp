@@ -1,19 +1,15 @@
 package com.example.habitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddTaskActivity extends AppCompatActivity {
@@ -23,6 +19,8 @@ public class AddTaskActivity extends AppCompatActivity {
     private EditText taskDetails;
     private Calendar calendar;
     private int day, month, year;
+
+    private boolean checkIfDateIsSet;
 
     private String date;
 
@@ -35,21 +33,25 @@ public class AddTaskActivity extends AppCompatActivity {
         taskDueDate = findViewById(R.id.set_due_date);
         taskDetails = findViewById(R.id.add_details);
 
-        date = "";
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH);
         year = calendar.get(Calendar.YEAR);
 
-        taskDueDate.setOnClickListener( l -> setDatePicker());
+        checkIfDateIsSet = false;
+
+        taskDueDate.setOnClickListener(l -> setDatePicker());
 
         Button saveNewTaskButton = findViewById(R.id.save_button);
-        saveNewTaskButton.setOnClickListener( l -> {
+        saveNewTaskButton.setOnClickListener(l -> {
             if (taskTitle.getText().toString().isEmpty())
                 Toast.makeText(this, "Task needs a title", Toast.LENGTH_SHORT).show();
             else {
                 DbHelper db = new DbHelper(AddTaskActivity.this);
-                db.addTask(taskTitle.getText().toString(), String.valueOf(calendar.getTimeInMillis()), taskDetails.getText().toString());
+                if (checkIfDateIsSet)
+                    db.addTask(taskTitle.getText().toString(), String.valueOf(calendar.getTimeInMillis()), taskDetails.getText().toString());
+                else
+                    db.addTask(taskTitle.getText().toString(), "", taskDetails.getText().toString());
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("fragment", 1);
@@ -61,6 +63,7 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     private void setDatePicker(){
+        checkIfDateIsSet = true;
         DatePickerDialog.OnDateSetListener onDateSetListener = (datePicker, selectedYear, selectedMonth, selectedDay) -> {
             day = selectedDay;
             month = selectedMonth;
