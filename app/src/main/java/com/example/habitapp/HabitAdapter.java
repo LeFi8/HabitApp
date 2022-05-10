@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,18 +20,20 @@ import java.util.ArrayList;
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder> {
 
     private final Context context;
-    private ArrayList<String> idHabit, habitName, habitTime, habitDetails;
+    private ArrayList<String> idHabit, habitName, habitTime, habitDetails, habitStatus;
 
     public HabitAdapter(Context context,
                         ArrayList<String> idHabit,
                         ArrayList<String> habitName,
                         ArrayList<String> habitTime,
-                        ArrayList<String> habitDetails) {
+                        ArrayList<String> habitDetails,
+                        ArrayList<String> habitStatus) {
         this.idHabit = idHabit;
         this.context = context;
         this.habitName = habitName;
         this.habitTime = convertToTime(habitTime);
         this.habitDetails = habitDetails;
+        this.habitStatus = habitStatus;
     }
 
     private ArrayList<String> convertToTime(ArrayList<String> timeOfHabit) {
@@ -82,6 +85,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
         holder.habitName_txt.setText(String.valueOf(habitName.get(position)));
         holder.habitTime_txt.setText(String.valueOf(habitTime.get(position)));
         holder.habitDetails_txt.setText(String.valueOf(habitDetails.get(position)));
+        holder.checkHabitStatus.setChecked(Integer.parseInt(habitStatus.get(position)) == 1);
     }
 
     @Override
@@ -95,6 +99,7 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
         private TextView deleteButton, deleteTextConfirmation;
         private Button confirmDelete;
         private Button cancelDelete;
+        private CheckBox checkHabitStatus;
 
         private AlertDialog.Builder dialogBuilder;
         private AlertDialog dialog;
@@ -111,6 +116,17 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
             habitTime_txt = itemView.findViewById(R.id.habit_time);
             habitDetails_txt = itemView.findViewById(R.id.habit_details);
             deleteButton = itemView.findViewById(R.id.delete_habit);
+            checkHabitStatus = itemView.findViewById(R.id.habit_checkBox);
+
+            final DbHelper db = new DbHelper(activity);
+
+            checkHabitStatus.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
+                String idHabit = habitId_txt.getText().toString().trim();
+                if (isChecked)
+                    db.changeHabitStatus(idHabit, 1);
+                else
+                    db.changeHabitStatus(idHabit, 0);
+            }));
 
             deleteButton.setOnClickListener(l -> {
                 dialogBuilder = new AlertDialog.Builder(activity);
@@ -134,7 +150,6 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
                 });
 
                 confirmDelete.setOnClickListener(x -> {
-                    DbHelper db = new DbHelper(activity);
                     db.deleteHabit(habitId_txt.getText().toString().trim());
 
                     Intent intent = new Intent(activity, MainActivity.class);

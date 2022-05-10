@@ -41,9 +41,9 @@ public class AddHabitActivity extends AppCompatActivity {
             else {
                 DbHelper db = new DbHelper(AddHabitActivity.this);
                 if (checkIfTimeIsSet)
-                    db.addHabit(habitTitle.getText().toString(), String.valueOf(timeInMilliseconds), habitDetails.getText().toString());
+                    db.addHabit(habitTitle.getText().toString(), String.valueOf(timeInMilliseconds), habitDetails.getText().toString(), 0);
                 else
-                    db.addHabit(habitTitle.getText().toString(), "", habitDetails.getText().toString());
+                    db.addHabit(habitTitle.getText().toString(), "", habitDetails.getText().toString(), 0);
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("fragment", 2);

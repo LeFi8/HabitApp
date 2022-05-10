@@ -34,10 +34,6 @@ public class AddTaskActivity extends AppCompatActivity {
         taskDetails = findViewById(R.id.add_details);
 
         calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-
         checkIfDateIsSet = false;
 
         taskDueDate.setOnClickListener(l -> setDatePicker());
@@ -61,7 +57,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
     }
-    // TODO: after first time changing date you cant choose date that is before selected but after todays date
+
     private void setDatePicker(){
         checkIfDateIsSet = true;
         DatePickerDialog.OnDateSetListener onDateSetListener = (datePicker, selectedYear, selectedMonth, selectedDay) -> {
@@ -75,7 +71,7 @@ public class AddTaskActivity extends AppCompatActivity {
             taskDueDate.setText(date);
         };
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, onDateSetListener, year, month, day);
-        datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+        datePickerDialog.getDatePicker().setMinDate(Calendar.getInstance().getTimeInMillis());
         datePickerDialog.setTitle("Select date");
         datePickerDialog.show();
     }

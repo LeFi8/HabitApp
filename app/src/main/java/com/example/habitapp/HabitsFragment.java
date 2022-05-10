@@ -20,7 +20,7 @@ public class HabitsFragment extends Fragment{
     private RecyclerView recyclerView;
 
     private DbHelper db;
-    private ArrayList<String> idHabit, name, time, details;
+    private ArrayList<String> idHabit, name, time, details, status;
     private HabitAdapter adapter;
 
     @Override
@@ -35,6 +35,7 @@ public class HabitsFragment extends Fragment{
         name = new ArrayList<>();
         time = new ArrayList<>();
         details = new ArrayList<>();
+        status = new ArrayList<>();
 
         displayHabits();
 
@@ -57,13 +58,14 @@ public class HabitsFragment extends Fragment{
                 name.add(cursor.getString(1));
                 time.add(cursor.getString(2));
                 details.add(cursor.getString(3));
+                status.add(cursor.getString(4));
             }
         }
     }
 
     private void displayHabits(){
         storeDataInArrays();
-        adapter = new HabitAdapter(this.getActivity(), idHabit, name, time, details);
+        adapter = new HabitAdapter(this.getActivity(), idHabit, name, time, details, status);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
     }

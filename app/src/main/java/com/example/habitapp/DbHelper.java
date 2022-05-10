@@ -19,9 +19,9 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String TABLE_TASK = "task";
     private static final String TABLE_HABIT = "habit";
     private static final String CREATE_TABLE_TASK =
-            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate INTEGER, Details TEXT, TaskDone INTEGER);";
+            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate INTEGER, Details TEXT, Status INTEGER);";
     private static final String CREATE_TABLE_HABIT =
-            "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time INTEGER, Details TEXT);";
+            "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time INTEGER, Details TEXT, Status INTEGER);";
 
     public DbHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -41,14 +41,14 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addTask(String name, String dueDate, String details, int done){
+    public void addTask(String name, String dueDate, String details, int status){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("Name", name);
         cv.put("DueDate", dueDate);
         cv.put("Details", details);
-        cv.put("TaskDone", done);
+        cv.put("Status", status);
 
         long result = db.insert(TABLE_TASK, null, cv);
         if (result == -1)
@@ -67,11 +67,11 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public void changeTaskStatus(String id, int isDone){
-        if (!checkIfTaskStatusHasChanged(id, isDone)) {
+        if (statusChanged(TABLE_TASK, id, isDone)) {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues cv = new ContentValues();
 
-            cv.put("TaskDone", isDone);
+            cv.put("Status", isDone);
             long result = db.update(TABLE_TASK, cv, "Id=?", new String[]{id});
 
             if (result == -1)
@@ -82,27 +82,15 @@ public class DbHelper extends SQLiteOpenHelper {
         }
     }
 
-    private boolean checkIfTaskStatusHasChanged(String id, int idDone){
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String query = "SELECT * FROM " + TABLE_TASK + " WHERE id = " + id + " AND TaskDone = " + idDone;
-        Cursor cursor = db.rawQuery(query, null);
-        if(cursor.getCount() <= 0){
-            cursor.close();
-            return false;
-        }
-        cursor.close();
-
-        return true;
-    }
-
-    public void addHabit(String name, String time, String details){
+    public void addHabit(String name, String time, String details, int status){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("Name", name);
         cv.put("Time", time);
         cv.put("Details", details);
+        cv.put("Status", status);
+
         long result = db.insert(TABLE_HABIT, null, cv);
         if (result == -1)
             Toast.makeText(context, "Failed to add new habit", Toast.LENGTH_SHORT).show();
@@ -117,6 +105,36 @@ public class DbHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to delete habit", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Habit deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    public void changeHabitStatus(String id, int isDone){
+        if (statusChanged(TABLE_HABIT, id, isDone)){
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+
+            cv.put("Status", isDone);
+            long result = db.update(TABLE_HABIT, cv, "Id=?", new String[]{id});
+
+            if (result == -1)
+                Toast.makeText(context, "Failed to modify habit status", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Habit status changed", Toast.LENGTH_SHORT).show();
+            db.close();
+        }
+    }
+
+    private boolean statusChanged(String table, String id, int idDone){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + table + " WHERE id = " + id + " AND Status = " + idDone;
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return true;
+        }
+        cursor.close();
+
+        return false;
     }
 
     public long numOfTasks(){
