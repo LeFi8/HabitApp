@@ -19,7 +19,7 @@ public class DbHelper extends SQLiteOpenHelper {
     private static final String TABLE_TASK = "task";
     private static final String TABLE_HABIT = "habit";
     private static final String CREATE_TABLE_TASK =
-            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate INTEGER, Details TEXT);";
+            "CREATE TABLE " + TABLE_TASK + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, DueDate INTEGER, Details TEXT, TaskDone INTEGER);";
     private static final String CREATE_TABLE_HABIT =
             "CREATE TABLE " + TABLE_HABIT + " (Id INTEGER PRIMARY KEY AUTOINCREMENT, Name TEXT, Time INTEGER, Details TEXT);";
 
@@ -41,13 +41,14 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addTask(String name, String dueDate, String details){
+    public void addTask(String name, String dueDate, String details, int done){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
         cv.put("Name", name);
         cv.put("DueDate", dueDate);
         cv.put("Details", details);
+        cv.put("TaskDone", done);
 
         long result = db.insert(TABLE_TASK, null, cv);
         if (result == -1)
@@ -63,6 +64,36 @@ public class DbHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Failed to delete task", Toast.LENGTH_SHORT).show();
         else
             Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
+    }
+
+    public void changeTaskStatus(String id, int isDone){
+        if (!checkIfTaskStatusHasChanged(id, isDone)) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+
+            cv.put("TaskDone", isDone);
+            long result = db.update(TABLE_TASK, cv, "Id=?", new String[]{id});
+
+            if (result == -1)
+                Toast.makeText(context, "Failed to modify task status", Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(context, "Task status changed", Toast.LENGTH_SHORT).show();
+            db.close();
+        }
+    }
+
+    private boolean checkIfTaskStatusHasChanged(String id, int idDone){
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM " + TABLE_TASK + " WHERE id = " + id + " AND TaskDone = " + idDone;
+        Cursor cursor = db.rawQuery(query, null);
+        if(cursor.getCount() <= 0){
+            cursor.close();
+            return false;
+        }
+        cursor.close();
+
+        return true;
     }
 
     public void addHabit(String name, String time, String details){

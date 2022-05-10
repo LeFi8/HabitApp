@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder> {
 
-    private Context context;
+    private final Context context;
     private ArrayList<String> idHabit, habitName, habitTime, habitDetails;
 
     public HabitAdapter(Context context,

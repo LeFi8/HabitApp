@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,21 +23,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> {
 
     private Context context;
-    private ArrayList<String> idTask, taskName, taskDueDate, taskDetails;
+    private ArrayList<String> idTask, taskName, taskDueDate, taskDetails, taskDone;
 
     public TaskAdapter(Context context,
                        ArrayList<String> idTask,
                        ArrayList<String> taskName,
                        ArrayList<String> taskDueDate,
-                       ArrayList<String> taskDetails) {
+                       ArrayList<String> taskDetails,
+                       ArrayList<String> taskDone) {
         this.idTask = idTask;
         this.context = context;
         this.taskName = taskName;
         this.taskDueDate = convertToDate(taskDueDate);
         this.taskDetails = taskDetails;
+        this.taskDone = taskDone;
     }
 
     private ArrayList<String> convertToDate(ArrayList<String> taskDueDate){
@@ -64,6 +70,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         holder.taskName_txt.setText(String.valueOf(taskName.get(position)));
         holder.taskDueDate_txt.setText(String.valueOf(taskDueDate.get(position)));
         holder.taskDetails_txt.setText(String.valueOf(taskDetails.get(position)));
+        holder.checkTaskStatus.setChecked(Integer.parseInt(taskDone.get(position)) == 1);
     }
 
     @Override
@@ -77,6 +84,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
         private TextView deleteButton, deleteTextConfirmation;
         private Button confirmDelete;
         private Button cancelDelete;
+        private CheckBox checkTaskStatus;
 
         private AlertDialog.Builder dialogBuilder;
         private AlertDialog dialog;
@@ -93,6 +101,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
             taskDueDate_txt = itemView.findViewById(R.id.task_date);
             taskDetails_txt = itemView.findViewById(R.id.task_details);
             deleteButton = itemView.findViewById(R.id.delete_task);
+            checkTaskStatus = itemView.findViewById(R.id.task_checkBox);
+
+            final DbHelper db = new DbHelper(activity);
+
+            // TODO: database is updating everytime holder is setting checkbox status
+            checkTaskStatus.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
+                String idTask = taskId_txt.getText().toString().trim();
+                if (isChecked)
+                    db.changeTaskStatus(idTask, 1);
+                else
+                    db.changeTaskStatus(idTask, 0);
+            }));
 
             deleteButton.setOnClickListener(l -> {
                 dialogBuilder = new AlertDialog.Builder(activity);
@@ -116,7 +136,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder>{
                 });
 
                 confirmDelete.setOnClickListener(x -> {
-                    DbHelper db = new DbHelper(activity);
                     db.deleteTask(taskId_txt.getText().toString().trim());
 
                     Intent intent = new Intent(activity, MainActivity.class);

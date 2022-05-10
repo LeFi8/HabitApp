@@ -23,7 +23,7 @@ public class TasksFragment extends Fragment {
     private RecyclerView recyclerView;
 
     private DbHelper db;
-    private ArrayList<String> idTask, name, dueDate, details;
+    private ArrayList<String> idTask, name, dueDate, details, done;
     private TaskAdapter adapter;
 
     @Override
@@ -39,6 +39,7 @@ public class TasksFragment extends Fragment {
         name = new ArrayList<>();
         dueDate = new ArrayList<>();
         details = new ArrayList<>();
+        done = new ArrayList<>();
 
         displayTasks();
 
@@ -61,13 +62,14 @@ public class TasksFragment extends Fragment {
                 name.add(cursor.getString(1));
                 dueDate.add(cursor.getString(2));
                 details.add(cursor.getString(3));
+                done.add(cursor.getString(4));
             }
         }
     }
 
     private void displayTasks(){
         storeDataInArrays();
-        adapter = new TaskAdapter(this.getActivity(), idTask, name, dueDate, details);
+        adapter = new TaskAdapter(this.getActivity(), idTask, name, dueDate, details, done);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
     }

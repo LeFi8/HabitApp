@@ -49,9 +49,9 @@ public class AddTaskActivity extends AppCompatActivity {
             else {
                 DbHelper db = new DbHelper(AddTaskActivity.this);
                 if (checkIfDateIsSet)
-                    db.addTask(taskTitle.getText().toString(), String.valueOf(calendar.getTimeInMillis()), taskDetails.getText().toString());
+                    db.addTask(taskTitle.getText().toString(), String.valueOf(calendar.getTimeInMillis()), taskDetails.getText().toString(), 0);
                 else
-                    db.addTask(taskTitle.getText().toString(), "", taskDetails.getText().toString());
+                    db.addTask(taskTitle.getText().toString(), "", taskDetails.getText().toString(), 0);
 
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("fragment", 1);
@@ -61,7 +61,7 @@ public class AddTaskActivity extends AppCompatActivity {
             }
         });
     }
-
+    // TODO: after first time changing date you cant choose date that is before selected but after todays date
     private void setDatePicker(){
         checkIfDateIsSet = true;
         DatePickerDialog.OnDateSetListener onDateSetListener = (datePicker, selectedYear, selectedMonth, selectedDay) -> {
