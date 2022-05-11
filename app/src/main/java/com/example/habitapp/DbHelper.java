@@ -66,20 +66,19 @@ public class DbHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
     }
 
-    public void changeTaskStatus(String id, int isDone){
-        if (statusChanged(TABLE_TASK, id, isDone)) {
-            SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues cv = new ContentValues();
+    public boolean changeTaskStatus(String id, int isDone) {
+        if (!statusChanged(TABLE_TASK, id, isDone))
+            return false;
 
-            cv.put("Status", isDone);
-            long result = db.update(TABLE_TASK, cv, "Id=?", new String[]{id});
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
-            if (result == -1)
-                Toast.makeText(context, "Failed to modify task status", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(context, "Task status changed", Toast.LENGTH_SHORT).show();
-            db.close();
-        }
+        cv.put("Status", isDone);
+        long result = db.update(TABLE_TASK, cv, "Id=?", new String[]{id});
+        db.close();
+
+        return result != -1;
+
     }
 
     public void addHabit(String name, String time, String details, int status){
@@ -107,20 +106,18 @@ public class DbHelper extends SQLiteOpenHelper {
             Toast.makeText(context, "Habit deleted", Toast.LENGTH_SHORT).show();
     }
 
-    public void changeHabitStatus(String id, int isDone){
-        if (statusChanged(TABLE_HABIT, id, isDone)){
-            SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues cv = new ContentValues();
+    public boolean changeHabitStatus(String id, int isDone) {
+        if (!statusChanged(TABLE_HABIT, id, isDone))
+            return false;
 
-            cv.put("Status", isDone);
-            long result = db.update(TABLE_HABIT, cv, "Id=?", new String[]{id});
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
-            if (result == -1)
-                Toast.makeText(context, "Failed to modify habit status", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(context, "Habit status changed", Toast.LENGTH_SHORT).show();
-            db.close();
-        }
+        cv.put("Status", isDone);
+        long result = db.update(TABLE_HABIT, cv, "Id=?", new String[]{id});
+        db.close();
+
+        return result != -1;
     }
 
     private boolean statusChanged(String table, String id, int idDone){
@@ -159,12 +156,12 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     public Cursor readAllTasks(){
-        String query = "SELECT * FROM " + TABLE_TASK + " ORDER BY (DueDate)";
+        String query = "SELECT * FROM " + TABLE_TASK + " ORDER BY Status, DueDate";
         return readAllFromTable(query);
     }
 
     public Cursor readAllHabits(){
-        String query = "SELECT * FROM " + TABLE_HABIT + " ORDER BY (Time)";
+        String query = "SELECT * FROM " + TABLE_HABIT + " ORDER BY Status, Time";
         return readAllFromTable(query);
     }
 

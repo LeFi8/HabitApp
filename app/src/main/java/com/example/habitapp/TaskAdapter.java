@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -101,10 +103,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
             checkTaskStatus.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
                 String idTask = taskId_txt.getText().toString().trim();
-                if (isChecked)
-                    db.changeTaskStatus(idTask, 1);
-                else
+                if (isChecked) {
+                    taskName_txt.setPaintFlags(taskName_txt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    if (db.changeTaskStatus(idTask, 1))
+                        Toast.makeText(activity, "Task done!", Toast.LENGTH_SHORT).show();
+                } else {
                     db.changeTaskStatus(idTask, 0);
+                    taskName_txt.setPaintFlags(taskName_txt.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                }
             }));
 
             deleteButton.setOnClickListener(l -> {

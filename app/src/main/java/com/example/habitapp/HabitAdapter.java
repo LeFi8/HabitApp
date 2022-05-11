@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -122,10 +124,15 @@ public class HabitAdapter extends RecyclerView.Adapter<HabitAdapter.MyViewHolder
 
             checkHabitStatus.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
                 String idHabit = habitId_txt.getText().toString().trim();
-                if (isChecked)
-                    db.changeHabitStatus(idHabit, 1);
-                else
+
+                if (isChecked) {
+                    habitName_txt.setPaintFlags(habitName_txt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                    if (db.changeHabitStatus(idHabit, 1))
+                        Toast.makeText(activity, "Habit done!", Toast.LENGTH_SHORT).show();
+                } else {
                     db.changeHabitStatus(idHabit, 0);
+                    habitName_txt.setPaintFlags(habitName_txt.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+                }
             }));
 
             deleteButton.setOnClickListener(l -> {
