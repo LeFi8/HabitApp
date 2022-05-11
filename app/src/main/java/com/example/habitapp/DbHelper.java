@@ -137,17 +137,17 @@ public class DbHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public long numOfTasks(){
-        return numOfRowsInTable(TABLE_TASK);
+    public long numOfTasks(int status){
+        return numOfRowsInTable(TABLE_TASK, status);
     }
 
-    public long numOfHabits(){
-        return numOfRowsInTable(TABLE_HABIT);
+    public long numOfHabits(int status){
+        return numOfRowsInTable(TABLE_HABIT, status);
     }
 
-    private long numOfRowsInTable(String tableName){
+    private long numOfRowsInTable(String tableName, int status){
         SQLiteDatabase db = this.getReadableDatabase();
-        long count = DatabaseUtils.queryNumEntries(db, tableName);
+        long count = DatabaseUtils.queryNumEntries(db, tableName, "Status=?", new String[]{String.valueOf(status)});
         db.close();
 
         return count;
