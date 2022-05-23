@@ -14,11 +14,11 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:background="@drawable/rounded_box"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
-            android:layout_marginTop="5dp">
+            android:background="@drawable/rounded_box"
+            android:padding="12dp">
 
             <CheckBox
                 android:id="@+id/habit_checkBox"
@@ -30,42 +30,43 @@
 
             <TextView
                 android:id="@+id/habit_title"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="0dp"
                 android:fontFamily="@font/roboto_bold"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:text="Title"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintEnd_toStartOf="@+id/habit_time"
+                app:layout_constraintHorizontal_bias="0.058"
                 app:layout_constraintStart_toEndOf="@+id/habit_checkBox"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/habit_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Time"
-                android:layout_marginTop="0dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
-                android:textSize="16sp"
                 android:fontFamily="@font/roboto"
+                android:text="Time"
                 android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/habit_details"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Details"
-                android:textSize="16sp"
+                android:layout_marginEnd="10dp"
                 android:fontFamily="@font/roboto"
+                android:text="Details"
                 android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/delete_habit"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/habit_title"
                 app:layout_constraintTop_toBottomOf="@+id/habit_title" />
 
@@ -73,12 +74,12 @@
                 android:id="@+id/delete_habit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Delete"
-                android:fontFamily="@font/roboto"
-                android:textSize="16sp"
+                android:layout_marginTop="6dp"
                 android:drawableLeft="@drawable/ic_delete"
+                android:fontFamily="@font/roboto"
+                android:text="Delete"
                 android:textColor="#DA0303"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/habit_time"
                 app:layout_constraintTop_toBottomOf="@+id/habit_time" />
 

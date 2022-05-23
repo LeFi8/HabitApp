@@ -120,6 +120,17 @@ public class DbHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
+    public boolean resetAllHabitsStatus(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put("Status", 0);
+        long result = db.update(TABLE_HABIT, cv, null, null);
+        db.close();
+
+        return result != -1;
+    }
+
     private boolean statusChanged(String table, String id, int idDone){
         SQLiteDatabase db = this.getReadableDatabase();
 
