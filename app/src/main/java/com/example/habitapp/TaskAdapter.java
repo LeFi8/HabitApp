@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,18 +26,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
     private Context context;
     private ArrayList<String> idTask, taskName, taskDueDate, taskDetails, taskStatus;
 
+    private boolean hideCompletedTasks;
+
     public TaskAdapter(Context context,
                        ArrayList<String> idTask,
                        ArrayList<String> taskName,
                        ArrayList<String> taskDueDate,
                        ArrayList<String> taskDetails,
-                       ArrayList<String> taskStatus) {
+                       ArrayList<String> taskStatus,
+                       boolean hideCompletedTasks) {
         this.idTask = idTask;
         this.context = context;
         this.taskName = taskName;
         this.taskDueDate = convertToDate(taskDueDate);
         this.taskDetails = taskDetails;
         this.taskStatus = taskStatus;
+        this.hideCompletedTasks = hideCompletedTasks;
     }
 
     private ArrayList<String> convertToDate(ArrayList<String> taskDueDate){
@@ -62,6 +68,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        if (hideCompletedTasks)
+            if (Integer.parseInt(taskStatus.get(position)) != 0) return;
+
         holder.taskId_txt.setText(String.valueOf(idTask.get(position)));
         holder.taskName_txt.setText(String.valueOf(taskName.get(position)));
         holder.taskDueDate_txt.setText(String.valueOf(taskDueDate.get(position)));
@@ -71,6 +80,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
     @Override
     public int getItemCount() {
+        if (hideCompletedTasks) {
+            DbHelper db = new DbHelper(this.context);
+            return (int) db.numOfTasks(0);
+        }
+
         return idTask.size();
     }
 
@@ -99,6 +113,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
             deleteButton = itemView.findViewById(R.id.delete_task);
             checkTaskStatus = itemView.findViewById(R.id.task_checkBox);
 
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+            boolean hideCompletedTasks = sp.getBoolean("hideCompletedTasks", false);
+
             final DbHelper db = new DbHelper(activity);
 
             checkTaskStatus.setOnCheckedChangeListener(((compoundButton, isChecked) -> {
@@ -107,6 +124,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                     taskName_txt.setPaintFlags(taskName_txt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     if (db.changeTaskStatus(idTask, 1))
                         Toast.makeText(activity, "Task done!", Toast.LENGTH_SHORT).show();
+                    if (hideCompletedTasks) refreshFragment();
                 } else {
                     db.changeTaskStatus(idTask, 0);
                     taskName_txt.setPaintFlags(taskName_txt.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
@@ -136,15 +154,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
 
                 confirmDelete.setOnClickListener(x -> {
                     db.deleteTask(taskId_txt.getText().toString().trim());
-
-                    Intent intent = new Intent(activity, MainActivity.class);
-                    intent.putExtra("fragment", 1);
-                    activity.startActivity(intent);
-                    activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    refreshFragment();
                 });
 
                 dialog.show();
             });
+        }
+
+        private void refreshFragment(){
+            Intent intent = new Intent(activity, MainActivity.class);
+            intent.putExtra("fragment", 1);
+            activity.startActivity(intent);
+            activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 }

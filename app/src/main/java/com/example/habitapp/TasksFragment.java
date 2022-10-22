@@ -17,6 +17,7 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TasksFragment extends Fragment {
 
@@ -46,11 +47,15 @@ public class TasksFragment extends Fragment {
         details = new ArrayList<>();
         status = new ArrayList<>();
 
-        hideTasks = sharedPreferences.getBoolean("hideTasks", false);
+        hideTasks = sharedPreferences.getBoolean("hideCompletedTasks", false);
         taskHideStatus.setChecked(hideTasks);
         taskHideStatus.setOnClickListener(l -> {
             hideTasks = taskHideStatus.isChecked();
-            sharedPreferences.edit().putBoolean("hideTasks", hideTasks).apply();
+            sharedPreferences.edit().putBoolean("hideCompletedTasks", hideTasks).apply();
+            Intent intent = new Intent(this.getActivity(), MainActivity.class);
+            intent.putExtra("fragment", 1);
+            this.getActivity().startActivity(intent);
+            this.getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         });
 
         displayTasks();
@@ -81,7 +86,7 @@ public class TasksFragment extends Fragment {
 
     private void displayTasks(){
         storeDataInArrays();
-        TaskAdapter adapter = new TaskAdapter(this.getActivity(), idTask, name, dueDate, details, status);
+        TaskAdapter adapter = new TaskAdapter(this.getActivity(), idTask, name, dueDate, details, status, hideTasks);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
     }
