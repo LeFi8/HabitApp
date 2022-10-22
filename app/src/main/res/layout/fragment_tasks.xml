@@ -14,20 +14,20 @@
 
         <TextView
             android:id="@+id/all_tasks"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto_bold"
-            android:text="All Tasks"
-            android:textColor="@color/white"
-            android:textSize="40dp"
-            android:textAlignment="center"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/all_tasks"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.246"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.017" />
+            app:layout_constraintVertical_bias="0.016" />
 
         <View
             android:id="@+id/line"
@@ -50,28 +50,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/all_tasks" />
 
-        <!--<Button
-            android:id="@+id/add_task_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="90dp"
-            android:layout_marginEnd="90dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/transparent"
-            android:drawableLeft="@drawable/ic_add"
-            android:drawablePadding="10dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="30dp"
-            android:text="@string/add_task"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/recycler_view"
-            app:layout_constraintVertical_bias="1.0"
-            tools:ignore="RtlHardcoded,RtlSymmetry" />-->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_tasks"
             android:layout_width="match_parent"
@@ -93,6 +71,22 @@
             android:background="@drawable/ic_add_circle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <CheckBox
+            android:id="@+id/hide_completed_tasks_checkbox"
+            android:layout_width="123dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto"
+            android:text="@string/hide_completed"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_tasks"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.603"
+            app:layout_constraintStart_toEndOf="@+id/all_tasks"
+            app:layout_constraintTop_toTopOf="@+id/line"
+            app:layout_constraintVertical_bias="0.551" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
