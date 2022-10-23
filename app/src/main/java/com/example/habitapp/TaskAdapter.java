@@ -122,9 +122,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyViewHolder> 
                 String idTask = taskId_txt.getText().toString().trim();
                 if (isChecked) {
                     taskName_txt.setPaintFlags(taskName_txt.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                    if (db.changeTaskStatus(idTask, 1))
+                    if (db.changeTaskStatus(idTask, 1)) {
                         Toast.makeText(activity, "Task done!", Toast.LENGTH_SHORT).show();
-                    if (hideCompletedTasks) refreshFragment();
+                        refreshFragment();
+                    }
                 } else {
                     db.changeTaskStatus(idTask, 0);
                     taskName_txt.setPaintFlags(taskName_txt.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
