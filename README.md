@@ -14,7 +14,7 @@ Home screen has three counters:
 
 ## Task fragment and task adding screen
 New tasks have a title, due date and a brief description. Once a task is finished you can check it. Tasks that are done appear on the bottom, 
-however they can also be completely removed from the list. <br></br>
+however they can also be completely removed from the list. You can also choose to hide all the completed tasks. <br></br>
 <img src="/sample-images/task_preview.png" width="720">
 
 ## Habit fragment and habit adding screen 
